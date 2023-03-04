@@ -308,8 +308,10 @@ body {
     border: none;
 }
 
+
+
 .filter__button_text {
-    color: #fff;
+    color: #f2f2f2;
     font-size: 1.2em;
     font-weight: 600;
 }
@@ -335,6 +337,32 @@ body {
     align-items: center;
     padding: 0 5px 0 5px;
 }
+
+.filter_sections {
+    padding: 0 1px 0 1px;
+    background: var(--caledor-sky);
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+}
+
+.filter__section {
+    padding: 6px 6px 16px 6px;
+    color: #e5e5e5;
+    text-transform: uppercase;
+    border-top: 1px solid #7da4cc;
+}
+
+.filter_section__title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.filter_section__title span {
+    font-size: 1.1em;
+    font-weight: 500;
+}
+
+
 
 /* colors */
 :root {

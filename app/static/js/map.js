@@ -6,7 +6,30 @@ const attachMapFilterEvents = map => {
         $('.filter__button--toggle_collapse').toggleClass('hide');
         $('.filter__button--toggle_hide').toggleClass('filter__button--toggle_active');
         $('.filter__action_bar').toggleClass('filter__action_bar--collapsed');
+        $('.filter_sections').toggleClass('hide');
+        $('.filter__button--toggle_collapse').hasClass('hide') && $('.filter_sections').addClass('hide'); // hide filter sections if collapse button is hidden
 
+        if ($('.filter_sections').hasClass('hide')) {
+            $('.filter__button--toggle_collapse').css('border-bottom-right-radius', '0.5rem');
+            $('.filter__button--toggle_hide').css('border-bottom-left-radius', '0.5rem');
+        }
+        else {
+            $('.filter__button--toggle_collapse').css('border-bottom-right-radius', '0');
+            $('.filter__button--toggle_hide').css('border-bottom-left-radius', '0');
+        }
+
+    });
+
+    $('.filter__button--toggle_collapse').on('click', function () {
+        $('.filter_sections').toggleClass('hide');
+        if ($('.filter_sections').hasClass('hide')) {
+            $('.filter__button--toggle_collapse').css('border-bottom-right-radius', '0.5rem');
+            $('.filter__button--toggle_hide').css('border-bottom-left-radius', '0.5rem');
+        }
+        else {
+            $('.filter__button--toggle_collapse').css('border-bottom-right-radius', '0');
+            $('.filter__button--toggle_hide').css('border-bottom-left-radius', '0');
+        }
     });
 
 
