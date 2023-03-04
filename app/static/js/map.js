@@ -1,4 +1,17 @@
 
+const attachMapFilterEvents = map => {
+    // listen to click event on filter__button--toggle_hide using jQuery
+    $('.filter__button--toggle_hide').on('click', function () {
+        // toggle the hide class on the filter__button--toggle_hide element
+        $('.filter__button--toggle_collapse').toggleClass('hide');
+        $('.filter__button--toggle_hide').toggleClass('filter__button--toggle_active');
+        $('.filter__action_bar').toggleClass('filter__action_bar--collapsed');
+
+    });
+
+
+}
+
 const createMap = () => {
     // center of the map
     var center = [-6.23, 34.9];
@@ -85,6 +98,7 @@ const createMapIcons = (map) => {
         return div;
     }
     filters.addTo(map);
+    attachMapFilterEvents(map);
 }
 
 function drawMarkers(data) {

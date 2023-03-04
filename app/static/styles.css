@@ -297,6 +297,11 @@ body {
     display: flex;
     width: 280px;
 }
+
+.filter__action_bar--collapsed {
+    justify-content: flex-end;
+}
+
 .filter__button {
     padding: 10px 0px 10px 0px;
     height: inherit;
@@ -307,6 +312,10 @@ body {
     color: #fff;
     font-size: 1.2em;
     font-weight: 600;
+}
+
+.filter__button--toggle_active {
+    border-radius: 0.5rem;
 }
 
 .filter__button--toggle_hide {
