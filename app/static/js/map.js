@@ -18,6 +18,7 @@ const attachMapFilterEvents = map => {
             $('.filter__button--toggle_hide').css('border-bottom-left-radius', '0');
         }
 
+
     });
 
     $('.filter__button--toggle_collapse').on('click', function () {
@@ -31,6 +32,18 @@ const attachMapFilterEvents = map => {
             $('.filter__button--toggle_hide').css('border-bottom-left-radius', '0');
         }
     });
+
+ $('.filter__section').each(function () {
+    const section = $(this);
+    console.log('section', section);
+    section.find('.filter_section__title').on('click', function () {
+        console.log('clicked title');
+        section.find('.filter_section__contents').toggleClass('hide');
+        
+    });
+ });
+
+
 
 
 }

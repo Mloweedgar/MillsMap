@@ -339,29 +339,104 @@ body {
 }
 
 .filter_sections {
-    padding: 0 1px 0 1px;
-    background: var(--caledor-sky);
+    border: 1px solid var(--caledor-sky);
     border-bottom-left-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem;
 }
 
 .filter__section {
-    padding: 6px 6px 16px 6px;
     color: #e5e5e5;
     text-transform: uppercase;
     border-top: 1px solid #7da4cc;
+    font-weight: 400;
 }
 
 .filter_section__title {
+    /* padding: 6px 6px 16px 6px;  js later*/ 
+    background: var(--caledor-sky);
+    padding: 3px 6px 3px 6px;
     display: flex;
+    cursor: pointer;
     justify-content: space-between;
 }
 
 .filter_section__title span {
-    font-size: 1.1em;
+    font-size: 1em;
     font-weight: 500;
 }
 
+.filter_section__contents {
+    border-top: 1px solid #7da4cc; 
+    color: #fff;
+    background-color: rgba(48, 97, 156, 0.8);
+}
+
+.filter_section__contents__item {
+    padding: 3px 0 3px 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.filter_section__contents__item label {
+    margin-left: 6px;
+    margin-bottom: 0;
+}
+
+.custom-checkbox {
+    position: relative;
+    display: block;
+    padding-left: 20px;
+    cursor: pointer;
+    font-size: 1.1em;
+    text-transform: capitalize;
+  }
+  
+  .custom-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .checkmark {
+    position: absolute;
+    top: 4px;
+    left: 0;
+    height: 12px;
+    width: 12px;
+    background-color: transparent;
+    border: 1px solid #fff;
+    border-radius: 50%;
+  }
+  
+  .filter_section__contents__item:hover {
+    background-color: rgba(25, 50, 80, 0.8);
+  }
+  
+  .custom-checkbox input:checked ~ .checkmark {
+    background-color: #fff;
+  }
+  
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  .custom-checkbox input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  .custom-checkbox .checkmark:after {
+    left: 3px;
+    top: 0;
+    width: 4px;
+    height: 8px;
+    border: solid var(--caledor-sky);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+  
 
 
 /* colors */
