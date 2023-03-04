@@ -40,7 +40,7 @@ const createMap = () => {
         "HOTOSM": hotLayer
     } //here more layers: https://www.tutorialspoint.com/leafletjs/leafletjs_getting_started.htm
 
-    L.control.layers(baseMaps).addTo(map);
+    //L.control.layers(baseMaps).addTo(map);
     osmLayer.addTo(map);
 
 
@@ -58,39 +58,33 @@ const createMapIcons = (map) => {
         sizeModes: ['A4Portrait', 'A4Landscape']
     }).addTo(map);
 
-    L.control.browserPrint({
-        documentTitle: "printImage",
-        printModes: [
-            L.BrowserPrint.Mode.Auto("Download PNG"),
-        ],
-        printFunction: () => {} // replaced saveAsImage function with an empty function to avoid error(Also I don't know the implementation of saveAsImage function)
-    }).addTo(map)
+    // L.control.browserPrint({
+    //     documentTitle: "printImage",
+    //     printModes: [
+    //         L.BrowserPrint.Mode.Auto("Download PNG"),
+    //     ],
+    //     printFunction: saveAsImage,
+    // }).addTo(map)
 
-    // Legend
+    // Add map legend
     var legend = L.control({ position: "bottomleft" });
-
-    // legend.onAdd = function (map) {
-    //     var div = L.DomUtil.create("div", "legend");
-    //     div.innerHTML += "<h4>Number of Schools</h4>";
-    //     div.innerHTML += '<i style="background: #7cc247"></i><span>Less than 10</span><br>';
-    //     div.innerHTML += '<i style="background: #f7eb65"></i><span>10 to 100</span><br>';
-    //     div.innerHTML += '<i style="background: #ff7438"></i><span>More than 100</span><br>';
-    //     div.innerHTML += '<i style="background: style="background-image: url(https://d30y9cdsu7xlg0.cloudfront.net/png/194515-200.png);background-repeat: no-repeat;"></i><span></span><br>';
-
-
-
-    //     return div;
-    // };
-
-    legend.onAdd = function (map) {
+    legend.onAdd = function () {
         var div = L.DomUtil.create('div', 'legend');
         var legendContent = document.getElementById('legend-content').innerHTML;
         div.innerHTML = legendContent;
         return div;
     };
-
-
     legend.addTo(map);
+
+    // Add Map Filters
+    var filters = L.control({ position: "topright" });
+    filters.onAdd = function () {
+        var div = L.DomUtil.create('div', 'filters');
+        var filtersContent = document.getElementById('filters-content').innerHTML;
+        div.innerHTML = filtersContent;
+        return div;
+    }
+    filters.addTo(map);
 }
 
 function drawMarkers(data) {

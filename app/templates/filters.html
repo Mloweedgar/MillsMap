@@ -1,27 +1,3 @@
-<div class="col-2 mt-4 margin-left-4 hide side-column" id="selects">
-  <div style="clear: both; margin: 30px; float: left">
-
-    <div>
-      <h4>Search</h4>
-      <form>
-        <input type="text" name="schoolNameField" id="schoolNameField">
-        <button class="btn bg-info p-3 m-2" type="button" onclick="searchSchool()">Search</button>
-      </form>
-    </div>
-    <h4>Filters</h4>
-    {% for key in filters %}
-    <strong class="select-title m-2">{{ filters[key] }}</strong>
-    <div class="select" id="{{ 'select' + key }}"></div>
-    {% endfor %}
-    <button class="btn bg-warning p-3 m-2" id="resetFilters">Reset filters</button>
-    <h4>Download data</h4>
-    <div id="download-type" style="clear: both; float: left">
-      <div><label><input type=radio name="operation" value="raw" checked="true">&nbsp;All data</label></div>
-      <div><label><input type=radio name="operation" value="table">&nbsp;Filtered data</label></div>
-    </div>
-    <br>
-    <div style="float: left">
-      <button class="btn bg-info p-3 m-2" id="download">Download</button>
-    </div>
-  </div>
+<div id="filters-content" style="display: none;">
+  <h2>Map Filters</h2>
 </div>
