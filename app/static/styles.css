@@ -292,6 +292,41 @@ body {
     background-color: #f8f9fa;
 }
 
+/* Map filter styles */
+.filter__action_bar {
+    display: flex;
+    width: 280px;
+}
+.filter__button {
+    padding: 10px 0px 10px 0px;
+    height: inherit;
+    border: none;
+}
+
+.filter__button_text {
+    color: #fff;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.filter__button--toggle_hide {
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+    background: var(--caledor-sky);
+    width: 15%;
+}
+
+.filter__button--toggle_collapse {
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    background: #5b87b7;
+    width: 85%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5px 0 5px;
+}
+
 /* colors */
 :root {
     --caledor-sky: #30619c;  /* backhround color */
