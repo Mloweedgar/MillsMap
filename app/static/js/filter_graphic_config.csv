@@ -1,0 +1,24 @@
+key,name,array_column,single_column,piechart,filter
+school_details_Location_addr_region,Region,0,0,1,1
+school_details_Location_addr_district,District,0,1,1,1
+Food_purchases_foodtype,Food purchases type,1,0,1,1
+school_details_school_type,School type,0,0,1,1
+school_details_Status_school_ownership,School ownership,0,0,1,1
+school_details_Status_school_accommodation,School Accommodation,0,1,1,1
+feeding_feeding_status,Feeding Status,0,0,1,1
+Food_purchases_feeding_program_planning,Feeding Program Planning,0,0,0,1
+Food_purchases_meals_timetable,Meals Timetable,0,0,0,1
+Sponsorship_feeding_program_provider_or_sponsor,School Meals Sponsor,1,0,1,1
+Food_food_source,Food Source,1,0,1,1
+Food_fortified_food,Cooking Fortified food,0,0,1,1
+Food_fortified_type,Fortified type,1,0,1,1
+Food_bio_fortified_food,Cooking Biofortified food,0,0,1,1
+Food_biofortified_type,Biofortified type,1,0,1,1
+school_farm_staple_foods_available,Staple foods available,1,0,1,1
+school_farm_school_poultry,School poultry,0,0,1,1
+school_farm_school_garden_or_farm,Does the school have the Farm or Garden,0,1,1,1
+school_farm_cultivated_vegetables_or_crops,What vegetables or crops are cultivated in the school garden or farm?,1,0,1,1
+Nutrition_club_school_nutrition_club,School nutrition club,0,0,1,1
+Cooking_cooking_area,Cooking area,1,0,1,1
+Cooking_energy,Cooking Energy,1,0,1,1
+Electricity_school_electricity_access,Electricity access,0,0,1,1

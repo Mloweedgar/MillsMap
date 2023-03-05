@@ -165,6 +165,7 @@ const createMap = () => {
 
     //L.control.layers(baseMaps).addTo(map);
     osmLayer.addTo(map);
+    L.geoJSON(geojsonFeature).addTo(map);
 
 
     // L.control.browserPrint({ position: 'topleft', title: 'Print ...' }).addTo(map);
@@ -215,7 +216,7 @@ const createMapIcons = (map) => {
 
 function drawMarkers(data) {
     var schoolIcon = L.icon({
-        iconUrl: 'static/static_figures/school-solid.svg',
+        iconUrl: 'static/static_figures/School.svg',
         iconSize: [60, 50], // size of the icon
     });
 
@@ -236,6 +237,7 @@ function drawMarkers(data) {
             p.school_details_Location_addr_region = v.school_details_Location_addr_region;
             p.school_details_Location_addr_district = v.school_details_Location_addr_district;
             p.school_details_Location_addr_ward_shehiya = v.school_details_Location_addr_ward_shehiya;
+            p.school_details_school_name = v.school_details_school_name;
 
             // p.mill_type.push(v.mill_type);
             // p.image_fns.push(v.img_machines);
@@ -277,6 +279,12 @@ function drawMarkers(data) {
         }
     );
 
+    var schoolName = cross_data.dimension(function (d) {
+        return d.school_details_school_name + '' + d.school_details_Status_school_registration_number;
+    });
+    new dc.TextFilterWidget("#search", groupname)
+        .dimension(schoolName);
+
     var mapChart = dc_leaflet.markerChart("#mapid", groupname);
     mapChart
         .dimension(facilities)
@@ -307,19 +315,6 @@ function drawMarkers(data) {
                     Id: (kv.key).toString(),
                     icon: schoolIcon,
                 });
-            // marker.on('click', function(e) {
-            //     console.log(kv);
-            //     var details_container = document.getElementById('details_container')
-            //     details_container.innerHTML = '';
-            //     document.getElementById('machine_details').innerHTML = kv.value.mill_type
-            //     for(i in kv.value.image_fns){
-            //         var fn = kv.value.image_fns[i]
-            //             console.log(fn)
-            //             var img = document.createElement("img");
-            //             details_container.appendChild(img);
-            //             img.src = "static/figures/" + fn;
-            //         }
-            //     })
 
             marker.on('mouseover', function (ev) {
                 ev.target.openPopup();
@@ -387,15 +382,29 @@ function drawMarkers(data) {
     //         })
     //       })
 
-    var operational_mill = cross_data.dimension(function (d) { return d.Food_purchases_foodtype; });
-    var operational_millGroup = operational_mill.group().reduceCount();
-    var operational_millPie = dc.pieChart("#functionalMills", groupname)
-        .dimension(operational_mill)
-        .group(operational_millGroup)
-        .slicesCap(12)
-    operational_millPie
-        .legend(dc.legend().highlightSelected(true))
-        .width(450)
+    // for (let key in infographics) {
+    //     console.log('key is ', key);
+    //     const id = '#infographic' + key
+    //     var data_dimension = cross_data.dimension(function (d) { return d[key]; });
+
+    //     var chartGroup = data_dimension.group().reduceCount();
+    //     var pieChart = dc.pieChart(id, groupname)
+    //         .dimension(data_dimension)
+    //         .group(chartGroup)
+    //         .slicesCap(12)
+    //     pieChart
+    //         .legend(dc.legend().highlightSelected(true))
+    //         .width(450)
+    // }
+    // var operational_mill = cross_data.dimension(function (d) { return d.Food_purchases_foodtype; });
+    // var operational_millGroup = operational_mill.group().reduceCount();
+    // var operational_millPie = dc.pieChart("#infographicFood_purchases_foodtype", groupname)
+    //     .dimension(operational_mill)
+    //     .group(operational_millGroup)
+    //     .slicesCap(12)
+    // operational_millPie
+    //     .legend(dc.legend().highlightSelected(true))
+    //     .width(450)
 
     //     var mill_owner = cross_data.dimension(function(d) { return d.interviewee_mill_owner; });
     //     var mill_ownerGroup = mill_owner.group().reduceCount();
@@ -464,99 +473,114 @@ function drawMarkers(data) {
 
 
     //     Select menus
-    array_columns = [
-        'Food_purchases_foodtype',
-        'Sponsorship_feeding_program_provider_or_sponsor',
-        'Food_food_source',
-        'Food_fortified_type',
-        'Food_biofortified_type',
-        'school_farm_staple_foods_available',
-        'school_farm_cultivated_vegetables_or_crops',
-        'Cooking_cooking_area',
-        'Cooking_energy'
-    ]
 
-    const filters = {
-        'school_details_Location_addr_region': 'Region',
-        'school_details_Location_addr_district': 'District',
-        // 'Food_purchases_foodtype': 'Food purchases type',
-        'school_details_school_type': 'School type',
-        'school_details_Status_school_ownership': 'School ownership',
-        'school_details_Status_school_accommodation': 'School Accommodation',
-        'feeding_feeding_status': 'Feeding Status',
-        'Food_purchases_feeding_program_planning': 'Feeding Program Planning',
-        'Food_purchases_meals_timetable': 'Meals Timetable',
-        // 'Sponsorship_feeding_program_provider_or_sponsor': 'School Meals Sponsor',
-        // 'Food_food_source': 'Food Source',
-        'Food_fortified_food': 'Cooking Fortified food',
-        // 'Food_fortified_type': 'Fortified type',
-        'Food_bio_fortified_food': 'Cooking Biofortified food',
-        // 'Food_biofortified_type': 'Biofortified type',
-        // 'school_farm_staple_foods_available': 'Staple foods available',
-        'school_farm_school_poultry': 'School poultry',
-        'school_farm_school_garden_or_farm': 'Does the school have the Farm or Garden',
-        // 'school_farm_cultivated_vegetables_or_crops': 'What vegetables or crops are cultivated in the school garden or farm?',
-        'Nutrition_club_school_nutrition_club': 'School nutrition club',
-        // 'Cooking_cooking_area': 'Cooking area',
-        // 'Cooking_energy': 'Cooking Energy',
-        'Electricity_school_electricity_access': 'Electricity access',
-    }
-    for (let key in filters) {
-        console.log('key is ', key);
-        const id = '#select' + key
-        var data_dimension = cross_data.dimension(function (d) { return d[key]; });
-        var selectDimension = new dc.SelectMenu(id, groupname);
-        selectDimension
-            .dimension(data_dimension)
-            .group(data_dimension.group())
-            .controlsUseVisibility(true);
-        selectDimension.title(function (subs) {
-            return subs.key;
-        })
-    }
-    for (const column of array_columns) {
-        console.log(column)
-        var commodity_milled2 = cross_data.dimension(function (d) { return d[column]; }, true);
-        const id = '#select' + column
-        console.log('id is', id)
-        var selectGrain = new dc.SelectMenu(id, groupname);
-        selectGrain
-            .dimension(commodity_milled2)
-            .group(commodity_milled2.group())
-            .controlsUseVisibility(true);
-        selectGrain.title(function (subs) {
-            return subs.key;
-        })
-    }
-    // var commodity_milled2 = cross_data.dimension(function (d) { return d.Food_purchases_foodtype; }, true);
-    // var selectGrain = new dc.SelectMenu('#selectFood_purchases_foodtype', groupname);
-    // selectGrain
-    //     .dimension(commodity_milled2)
-    //     .group(commodity_milled2.group())
-    //     .controlsUseVisibility(true);
-    // selectGrain.title(function (subs) {
-    //     return subs.key;
-    // })
+    fetch("static/js/filter_graphic_config.csv")
+        .then(res => res.text())
+        .then(csv => {
+            console.log("jahahahahhaha")
+            console.log("csv", csv)
+            var lines = csv.split("\n");
+            console.log("lines", lines)
 
-    dc.renderAll(groupname);
+            var filters = [];
 
-    //  Reset the filters
-    d3.select('#resetFilters')
-        .on('click', function () {
-            console.log('reseted filters')
-            dc.filterAll(groupname);
-            dc.redrawAll(groupname);
+            // NOTE: If your columns contain commas in their values, you'll need
+            // to deal with those before doing the next step 
+            // (you might convert them to &&& or something, then covert them back later)
+            // jsfiddle showing the issue https://jsfiddle.net/
+            var headers = lines[0].split(",");
+
+            for (var i = 1; i < lines.length; i++) {
+
+                var obj = {};
+                var currentline = lines[i].split(",");
+
+                for (var j = 0; j < headers.length; j++) {
+                    obj[headers[j]] = currentline[j];
+                }
+
+                filters.push(obj);
+
+            }
+            console.log("filters", filters)
+
+
+            //return result; //JavaScript object
+            // return JSON.stringify(result); //JSON
+
+            for (let index in filters) {
+                const id = '#select' + filters[index]['key']
+                if (filters[index]['array_column'] == 1) {
+                    var data_dimension = cross_data.dimension(function (d) { return d[filters[index]['key']]; }, true);
+                } else {
+                    var data_dimension = cross_data.dimension(function (d) { return d[filters[index]['key']]; });
+                }
+                var selectDimension = new dc.SelectMenu(id, groupname);
+                selectDimension
+                    .dimension(data_dimension)
+                    .group(data_dimension.group())
+                    .controlsUseVisibility(true);
+                selectDimension.title(function (subs) {
+                    return subs.key;
+                })
+            }
+
+            for (let index in filters) {
+                const id = '#infographic' + filters[index]['key']
+                if (filters[index]['array_column'] == 1) {
+                    var data_dimension = cross_data.dimension(function (d) { return d[filters[index]['key']]; }, true);
+                } else {
+                    var data_dimension = cross_data.dimension(function (d) { return d[filters[index]['key']]; });
+                }
+                if (filters[index]['piechart'] == 1) {
+                    var chartGroup = data_dimension.group().reduceCount();
+                    var pieChart = dc.pieChart(id, groupname)
+                        .dimension(data_dimension)
+                        .group(chartGroup)
+                        .slicesCap(12)
+                    pieChart
+                        .legend(dc.legend().highlightSelected(true))
+                        .width(450)
+                } else {
+                    var chartGroup = data_dimension.group();
+                    var barChart = dc.barChart(id, groupname)
+                    barChart
+                        .x(d3.scaleBand())
+                        .xUnits(dc.units.ordinal)
+                        .brushOn(false)
+                        //          .yAxisLabel('Number of machines')
+                        .dimension(data_dimension)
+                        .barPadding(0.1)
+                        .outerPadding(0.05)
+                        .elasticY(true)
+                        .width(450)
+                        .group(chartGroup);
+                }
+
+            }
+
+            dc.renderAll(groupname);
+
+            //  Reset the filters
+            d3.select('#resetFilters')
+                .on('click', function () {
+                    console.log('reseted filters')
+                    dc.filterAll(groupname);
+                    dc.redrawAll(groupname);
+                });
+
+            // //    Download
+            //     d3.select('#download')
+            //     .on('click', function() {
+            //         if(d3.select('#download-type input:checked').node().value==='table') {
+            //             var selectedData = non_operational2.top(Infinity);
+            //         }else{
+            //         var selectedData = data
+            //         }
+            //         var blob = new Blob([d3.csvFormat(selectedData)], {type: "text/csv;charset=utf-8"});
+            //         saveAs(blob, 'OMDTZ_mills.csv');
+            //     });
         });
 
-    // //    Download
-    //     d3.select('#download')
-    //     .on('click', function() {
-    //         if(d3.select('#download-type input:checked').node().value==='table') {
-    //             var selectedData = non_operational2.top(Infinity);
-    //         }else{
-    //         var selectedData = data
-    //         }
-    //         var blob = new Blob([d3.csvFormat(selectedData)], {type: "text/csv;charset=utf-8"});
-    //         saveAs(blob, 'OMDTZ_mills.csv');
-    //     });
 }
+

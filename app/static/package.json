@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ajax": "0.0.4",
     "leaflet-easyprint": "^2.1.9",
     "leaflet.browser.print": "^2.0.2"
   }

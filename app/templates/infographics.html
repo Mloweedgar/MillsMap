@@ -1,20 +1,8 @@
-
 <div id="infographics" class="hide col-4 figures side-column">
+    {% for filter in filters %}
     <div class="p-3">
-        <h4  class="card-title text-center">Food type</h4>
-        <div id="functionalMills" class="infographics"></div>
+        <h4 class="card-title text-center">{{ filter['name'] }}</h4>
+        <div id="{{ 'infographic' + filter['key'] }}" class="infographics"></div>
     </div>
-    <div class="p-3">
-        <h4  class="card-title text-center">Mill types</h4>
-        <div id="millTypes" class="infographics"></div>
-    </div>
-    <div class="p-3">
-        <h4  class="card-title text-center">Flour is fortified</h4>
-        <div id="fortifiedFlour" class="infographics"></div>
-    </div>
-    <div class="p-3">
-        <h4  class="card-title text-center">Milled grain</h4>
-        <div id="grainType" class="infographics"></div>
-    </div>
-
- </div>
+    {% endfor %}
+</div>
