@@ -1,5 +1,5 @@
 
-
+let filterOptions = [];
  /*
    Example structure of activeFilters
       [
@@ -29,14 +29,14 @@ function handleChange(filterId, e) {
     if(e.target.checked) {
         activeFilters = [...activeFilters, selectedFilter];
         const selectFilters = activeFilters.filter(f => f.filterId === filterId).map(f => f.filter.name).join(', ');
-        $(`#${filterId}.filter_section__applied_filters`).text(`${selectFilters}`);
+        $(`#${filterId} .filter_section__applied_filters`).text(`${selectFilters}`);
         e.target.closest(".filter_section__contents__item").style.backgroundColor = "rgba(25, 50, 80, 0.8)";
 
     }
     else {
         activeFilters = activeFilters.filter(f => JSON.stringify(f) !== selectedFilterString);
         const selectFilters = activeFilters.filter(f => f.filterId === filterId).map(f => f.filter.name).join(', ');
-        $(`#${filterId}.filter_section__applied_filters`).text(`${selectFilters ? selectFilters : 'All'}`);
+        $(`#${filterId} .filter_section__applied_filters`).text(`${selectFilters ? selectFilters : 'All'}`);
         e.target.closest(".filter_section__contents__item").style.backgroundColor = "transparent";
     }
 
@@ -46,6 +46,29 @@ function handleChange(filterId, e) {
     else {
         $('.filter_section__clear_filters').addClass('hide');
     }
+
+}
+
+function displayFilterOptions(allOptions){
+    console.log('allOptions', allOptions);
+    allOptions.forEach(optionObject => {
+        const {key,name, options} = optionObject;
+        if(key) {
+            filterSectionContentsItems = options.map((option) =>{
+                return `<div class="filter_section__contents__item">
+                <label class="custom-checkbox">
+                  <input type="checkbox" value="${option}" name="${option}" onchange="handleChange('${key}', event)">
+                  <span class="checkmark"></span>
+                  ${option}
+                </label>
+              </div>`;
+            });
+            $(`#${key} .filter_section__contents`).html(filterSectionContentsItems);
+        }
+        
+
+        
+    });
 
 }
 
@@ -515,6 +538,11 @@ function drawMarkers(data) {
                 } else {
                     var data_dimension = cross_data.dimension(function (d) { return d[filters[index]['key']]; });
                 }
+                filterOptions.push({
+                    key: filters[index]['key'],
+                    name: filters[index]['name'],
+                    options: data_dimension.group().all().map(option => option.key)
+                });
                 var selectDimension = new dc.SelectMenu(id, groupname);
                 selectDimension
                     .dimension(data_dimension)
@@ -524,6 +552,8 @@ function drawMarkers(data) {
                     return subs.key;
                 })
             }
+            console.log("filterOptions", filterOptions);
+            displayFilterOptions(filterOptions);
 
             for (let index in filters) {
                 const id = '#infographic' + filters[index]['key']
