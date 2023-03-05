@@ -22,15 +22,16 @@
 
     <div class="filter_sections hide">
       <!-- Region filters -->
+      {% for filter in filters %}
       <div class="filter__section">
-        <div class="filter_section__title" id="region">
-          <span>Region</span>
+        <div class="filter_section__title" id="{{filter['key']}}">
+          <span>{{ filter['value'] }}</span>
           <svg fill="white" height="20" viewBox="0 0 24 24">
             <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path>
           </svg>
         </div>
 
-        <div class="filter_section__contents">
+        <div class="filter_section__contents hide">
 
           <div class="filter_section__contents__item">
             <label class="custom-checkbox">
@@ -60,59 +61,7 @@
 
 
       </div>
-
-      <!-- Type of the School filters -->
-      <div class="filter__section">
-        <div class="filter_section__title" id="type_of_school">
-          <span>Type of the school</span>
-          <svg fill="white" height="20" viewBox="0 0 24 24">
-            <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path>
-          </svg>
-        </div>
-
-        <div class="filter_section__contents">
-
-          <div class="filter_section__contents__item">
-            <label class="custom-checkbox">
-              <input type="checkbox">
-              <span class="checkmark"></span>
-              Boys
-            </label>
-          </div>
-
-          <div class="filter_section__contents__item">
-            <label class="custom-checkbox">
-              <input type="checkbox">
-              <span class="checkmark"></span>
-              Girls
-            </label>
-          </div>
-
-          <div class="filter_section__contents__item">
-            <label class="custom-checkbox">
-              <input type="checkbox">
-              <span class="checkmark"></span>
-              Mixture
-            </label>
-          </div>
-
-        </div>
-
-
-      </div>
-
-
-
-      <div class="filter__section">
-        <div class="filter_section__title">
-          <span>School feeding </span>
-          <svg fill="white" height="20" viewBox="0 0 24 24">
-            <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path>
-          </svg>
-        </div>
-      </div>
-
-
+      {% endfor %}
     </div>
 
   </div>

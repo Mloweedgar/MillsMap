@@ -1,5 +1,12 @@
 
 const attachMapFilterEvents = map => {
+
+   $('filters').on('mousedown', function(e) {
+    map.scrollWheelZoom.disable();
+  });
+   $('filters').on('mouseup', function(e) {
+    map.scrollWheelZoom.enable();
+  });
     // listen to click event on filter__button--toggle_hide using jQuery
     $('.filter__button--toggle_hide').on('click', function () {
         // toggle the hide class on the filter__button--toggle_hide element
@@ -53,7 +60,7 @@ const createMap = () => {
     var center = [-6.23, 34.9];
     // Create the map
     var map = new L.map('mapid', {
-        fullscreenControl: true
+        fullscreenControl: true,
     }).setView(center, 6);
     // Set up the OSM layer
     L.tileLayer(
@@ -131,6 +138,8 @@ const createMapIcons = (map) => {
         var div = L.DomUtil.create('div', 'filters');
         var filtersContent = document.getElementById('filters-content').innerHTML;
         div.innerHTML = filtersContent;
+        L.DomEvent.on(div, 'mousewheel', L.DomEvent.stopPropagation);
+
         return div;
     }
     filters.addTo(map);

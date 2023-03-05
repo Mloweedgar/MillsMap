@@ -266,7 +266,8 @@ def json_test():
 @app.route('/index')
 @app.route('/home')
 def index():
-    return render_template('index.html', title='Map', filters=filters)
+    key_value_pairs = [{'key': key, 'value': value} for key, value in filters.items()]
+    return render_template('index.html', title='Map', filters=key_value_pairs)
 
 
 @app.route('/filterform', methods=['GET', 'POST'])

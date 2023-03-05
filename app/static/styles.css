@@ -293,9 +293,13 @@ body {
 }
 
 /* Map filter styles */
+.filters {
+    min-width: 280px;
+}
+
 .filter__action_bar {
     display: flex;
-    width: 280px;
+    width: inherit;
 }
 
 .filter__action_bar--collapsed {
@@ -342,6 +346,8 @@ body {
     border: 1px solid var(--caledor-sky);
     border-bottom-left-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem;
+    max-height: 60vh;
+    overflow-y: auto;
 }
 
 .filter__section {
@@ -369,6 +375,8 @@ body {
     border-top: 1px solid #7da4cc; 
     color: #fff;
     background-color: rgba(48, 97, 156, 0.8);
+    max-height: 280px;
+    overflow-y: auto;
 }
 
 .filter_section__contents__item {
