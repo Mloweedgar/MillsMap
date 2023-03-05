@@ -372,6 +372,7 @@ body {
     color: #fff;
     font-weight: 600;
     text-align: left;
+    text-transform: capitalize;
     padding-left: 6px;
 }
 

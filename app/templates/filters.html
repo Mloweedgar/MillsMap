@@ -24,14 +24,14 @@
       <!-- Region filters -->
       {% for filter in filters %}
       <div class="filter__section">
-        <div class="filter_section__title" id="{{filter['key']}}">
+        <div class="filter_section__title" >
           <span>{{ filter['value'] }}</span>
           <svg fill="white" height="20" viewBox="0 0 24 24">
             <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path>
           </svg>
         </div>
 
-        <div class="filter_section__applied_filters">All</div>
+        <div class="filter_section__applied_filters" id="{{filter['key']}}">All</div>
         <div class="filter_section__contents hide">
 
           <div class="filter_section__contents__item">

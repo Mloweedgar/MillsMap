@@ -28,9 +28,13 @@ function handleChange(filterId, e) {
 
     if(e.target.checked) {
         activeFilters = [...activeFilters, selectedFilter];
+        const selectFilters = activeFilters.filter(f => f.filterId === filterId).map(f => f.filter.name).join(', ');
+        $(`#${filterId}.filter_section__applied_filters`).text(`${selectFilters}`);
     }
     else {
         activeFilters = activeFilters.filter(f => JSON.stringify(f) !== selectedFilterString);
+        const selectFilters = activeFilters.filter(f => f.filterId === filterId).map(f => f.filter.name).join(', ');
+        $(`#${filterId}.filter_section__applied_filters`).text(`${selectFilters ? selectFilters : 'All'}`);
     }
 
 }
