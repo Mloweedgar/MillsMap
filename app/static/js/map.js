@@ -30,23 +30,35 @@ function handleChange(filterId, e) {
         activeFilters = [...activeFilters, selectedFilter];
         const selectFilters = activeFilters.filter(f => f.filterId === filterId).map(f => f.filter.name).join(', ');
         $(`#${filterId}.filter_section__applied_filters`).text(`${selectFilters}`);
+        e.target.closest(".filter_section__contents__item").style.backgroundColor = "rgba(25, 50, 80, 0.8)";
+
     }
     else {
         activeFilters = activeFilters.filter(f => JSON.stringify(f) !== selectedFilterString);
         const selectFilters = activeFilters.filter(f => f.filterId === filterId).map(f => f.filter.name).join(', ');
         $(`#${filterId}.filter_section__applied_filters`).text(`${selectFilters ? selectFilters : 'All'}`);
+        e.target.closest(".filter_section__contents__item").style.backgroundColor = "transparent";
+    }
+
+    if (activeFilters.length > 0) {
+        $('.filter_section__clear_filters').removeClass('hide');
+    }
+    else {
+        $('.filter_section__clear_filters').addClass('hide');
     }
 
 }
 
 const attachMapFilterEvents = map => {
-
+     // Prevent map from zooming when scrolling over filters
     $('filters').on('mousedown', function (e) {
         map.scrollWheelZoom.disable();
     });
     $('filters').on('mouseup', function (e) {
         map.scrollWheelZoom.enable();
     });
+
+    // toggle hide/show filter action bar
     $('.filter__button--toggle_hide').on('click', function () {
         $('.filter__button--toggle_collapse').toggleClass('hide');
         $('.filter__button--toggle_hide').toggleClass('filter__button--toggle_active');
@@ -66,6 +78,7 @@ const attachMapFilterEvents = map => {
 
     });
 
+    // toggle collapse/expand filter sections/filters
     $('.filter__button--toggle_collapse').on('click', function () {
         $('.filter_sections').toggleClass('hide');
         if ($('.filter_sections').hasClass('hide')) {
@@ -83,7 +96,7 @@ const attachMapFilterEvents = map => {
         const section = $(this);
         const appliedFilters = section.find('.filter_section__applied_filters');
 
-        // Open filter section on click
+        // toggle Open/Close filter options 
         section.find('.filter_section__title').on('click', function () {
             section.find('.filter_section__contents').toggleClass('hide');
             if (section.find('.filter_section__contents').hasClass('hide')) {
@@ -96,9 +109,17 @@ const attachMapFilterEvents = map => {
         });
     });
 
-
-
-
+    // clear all filters
+    $('.filter_section__clear_filters').on('click', function () {
+        activeFilters = [];
+        $('.filter_section__applied_filters').text('All');
+        $('.filter_section__contents__item').css('background-color', 'transparent');
+        $('.filter_section__clear_filters').addClass('hide');
+        // clear all checkboxes
+        $('.filter_section__contents__item input[type="checkbox"]').each(function () {
+            $(this).prop('checked', false);
+        });
+    });
 }
 
 const createMap = () => {

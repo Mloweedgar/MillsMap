@@ -374,6 +374,7 @@ body {
     text-align: left;
     text-transform: capitalize;
     padding-left: 6px;
+    padding-bottom: 2px;
 }
 
 .filter_section__title span {
@@ -453,6 +454,17 @@ body {
     border: solid var(--caledor-sky);
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
+  }
+
+  .filter_section__clear_filters {
+    padding: 3px 0 3px 0;
+    border-top: 1px solid #7da4cc;
+    background-color: rgba(48, 97, 156, 0.8);
+    font-weight: 600;
+    text-decoration: underline;
+    text-align: center;
+    color: #e5e5e5;
+    cursor: pointer;
   }
   
 
