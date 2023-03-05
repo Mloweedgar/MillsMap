@@ -1,15 +1,49 @@
 
+
+ /*
+   Example structure of activeFilters
+      [
+    {
+        "filterId": "school_details_Location_addr_district",
+        "filter": {
+            "name": "Iringa",
+            "value": "i"
+        }
+    },
+    {
+        "filterId": "school_details_Location_addr_region",
+        "filter": {
+            "name": "Ruvuma",
+            "value": "r"
+        }
+    }
+]
+     */
+let activeFilters = [];
+
+// handles filter changes
+function handleChange(filterId, e) {
+    selectedFilter = { filterId, filter: { name: e.target.name, value: e.target.value } };
+    const selectedFilterString = JSON.stringify(selectedFilter);
+
+    if(e.target.checked) {
+        activeFilters = [...activeFilters, selectedFilter];
+    }
+    else {
+        activeFilters = activeFilters.filter(f => JSON.stringify(f) !== selectedFilterString);
+    }
+
+}
+
 const attachMapFilterEvents = map => {
 
-   $('filters').on('mousedown', function(e) {
-    map.scrollWheelZoom.disable();
-  });
-   $('filters').on('mouseup', function(e) {
-    map.scrollWheelZoom.enable();
-  });
-    // listen to click event on filter__button--toggle_hide using jQuery
+    $('filters').on('mousedown', function (e) {
+        map.scrollWheelZoom.disable();
+    });
+    $('filters').on('mouseup', function (e) {
+        map.scrollWheelZoom.enable();
+    });
     $('.filter__button--toggle_hide').on('click', function () {
-        // toggle the hide class on the filter__button--toggle_hide element
         $('.filter__button--toggle_collapse').toggleClass('hide');
         $('.filter__button--toggle_hide').toggleClass('filter__button--toggle_active');
         $('.filter__action_bar').toggleClass('filter__action_bar--collapsed');
@@ -40,15 +74,23 @@ const attachMapFilterEvents = map => {
         }
     });
 
- $('.filter__section').each(function () {
-    const section = $(this);
-    console.log('section', section);
-    section.find('.filter_section__title').on('click', function () {
-        console.log('clicked title');
-        section.find('.filter_section__contents').toggleClass('hide');
-        
+    // attach onclick events to filters
+    $('.filter__section').each(function () {
+        const section = $(this);
+        const appliedFilters = section.find('.filter_section__applied_filters');
+
+        // Open filter section on click
+        section.find('.filter_section__title').on('click', function () {
+            section.find('.filter_section__contents').toggleClass('hide');
+            if (section.find('.filter_section__contents').hasClass('hide')) {
+                appliedFilters.removeClass('hide');
+            }
+            else {
+                appliedFilters.addClass('hide');
+            }
+
+        });
     });
- });
 
 
 

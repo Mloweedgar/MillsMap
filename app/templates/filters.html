@@ -31,11 +31,12 @@
           </svg>
         </div>
 
+        <div class="filter_section__applied_filters">All</div>
         <div class="filter_section__contents hide">
 
           <div class="filter_section__contents__item">
             <label class="custom-checkbox">
-              <input type="checkbox">
+              <input type="checkbox" value="r" name="Ruvuma" onchange="handleChange('{{filter.key}}', event)">
               <span class="checkmark"></span>
               Ruvuma
             </label>
@@ -43,22 +44,13 @@
 
           <div class="filter_section__contents__item">
             <label class="custom-checkbox">
-              <input type="checkbox">
+              <input type="checkbox" value="i" name="Iringa" onchange="handleChange('{{filter.key}}', event)">
               <span class="checkmark"></span>
               Iringa
             </label>
           </div>
-
-          <div class="filter_section__contents__item">
-            <label class="custom-checkbox">
-              <input type="checkbox">
-              <span class="checkmark"></span>
-              Morogoro
-            </label>
-          </div>
-
+          
         </div>
-
 
       </div>
       {% endfor %}

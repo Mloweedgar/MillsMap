@@ -360,14 +360,23 @@ body {
 .filter_section__title {
     /* padding: 6px 6px 16px 6px;  js later*/ 
     background: var(--caledor-sky);
-    padding: 3px 6px 3px 6px;
+    padding: 3px 6px 2px 6px;
     display: flex;
     cursor: pointer;
     justify-content: space-between;
+    align-items: flex-end;
+}
+
+.filter_section__applied_filters {
+    background: var(--caledor-sky);
+    color: #fff;
+    font-weight: 600;
+    text-align: left;
+    padding-left: 6px;
 }
 
 .filter_section__title span {
-    font-size: 1em;
+    font-size: 0.9em;
     font-weight: 500;
 }
 
